@@ -1,9 +1,13 @@
 import React, {useState, useEffect} from "react";
 import {render} from "react-dom";
-import './App.css'
-import List from './components/List'
+import {BrowserRouter, Routes, Route} from "react-router-dom"
+import HomePage from './components/HomePage'
+import Login from './components/Login'
+import Profile from './components/Profile'
+// import './App.css'
 
 const App = () => {
+    /*
     let [list, setList] = useState([]);
     let [loaded, setLoaded] = useState(false);
     let [placeholder, setPlaceholder] = useState("Loading");
@@ -20,9 +24,15 @@ const App = () => {
                 setLoaded(true)
             });
     }, []);
-
+*/
     return (
-        <List data={list}/>
+        <BrowserRouter>
+            <Routes>
+                <Route exact path={'/'} element={<HomePage/>}/>
+                <Route path={'/login'} element={<Login/>}/>
+                <Route path={'/profile'} element={<Profile/>}/>
+            </Routes>
+        </BrowserRouter>
     );
 };
 
