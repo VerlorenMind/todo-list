@@ -1,14 +1,13 @@
 import React from "react";
-import Profile from './Profile'
-import Login from './Login'
-import {Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
+import {isLoggedIn} from "../services/UserActions";
 
 const HomePage = () => {
-    if (localStorage.getItem("userToken")) {
-        return(<Redirect to='/profile'/>);
+    if (isLoggedIn()) {
+        return(<Link to='/profile'>Profile</Link>);
     }
     else {
-        return(<Redirect to='/login'/>);
+        return(<Link to='/login'>Login</Link>);
     }
 }
 

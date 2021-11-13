@@ -1,44 +1,39 @@
 import React, {useEffect, useState} from "react";
-import {Redirect} from "react-router-dom";
-import ListItem from "./ListItem";
+import {Link} from "react-router-dom";
+import {getToken} from "../services/UserActions";
 
 const Profile = () => {
-    let token = localStorage.getItem("userToken");
+    let token = getToken();
     let [lists, setLists] = useState([]);
-    if(token)
-    {
-        useEffect(
-            () => {
-                fetch("api/lists",
-                    {
-                        method: 'GET',
-                        headers: {
-                            'Authorization' : 'Token ' + token
-                        }
+    useEffect(
+        () => {
+            fetch("api/lists",
+                {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Token ' + token
                     }
-                )
+                }
+            )
                 .then(response => {
                     return response.json();
                 })
                 .then(list => {
                     setLists(list);
                 });
-            }
-        )
-        return(
+        }, []
+    )
+    return(
+        <div className={'list-container'}>
             <ul>
                 {lists.map(item => {
                     return (
-                        <li key={item.id}>{item.name}</li>
+                        <li key={item.id}><Link to={'/list/' + item.id}>{item.name}</Link></li>
                     )
                 })}
             </ul>
-        );
-    }
-    else
-    {
-        return (<Redirect to={'/login'}/>)
-    }
+        </div>
+    );
 }
 
 export default Profile;
