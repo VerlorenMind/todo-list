@@ -3,19 +3,19 @@ from .models import List, ListItem
 from django.contrib.auth.models import User
 
 
-class ListSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
-    items = serializers.PrimaryKeyRelatedField(many=True, queryset=ListItem.objects.all())
-
-    class Meta:
-        model = List
-        fields = ['id', 'name', 'owner', 'items']
-
-
 class ListItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = ListItem
         fields = ['id', 'contents', 'done', 'list']
+
+
+class ListSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    items = ListItemSerializer(many=True, required=False)
+
+    class Meta:
+        model = List
+        fields = ['id', 'name', 'owner', 'items']
 
 
 class UserSerializer(serializers.ModelSerializer):
