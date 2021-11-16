@@ -1,24 +1,35 @@
+import django.contrib.auth.models
 from django.shortcuts import render
 
 from .models import List, ListItem
-from .serializers import ListSerializer, ListItemSerializer, UserSerializer
+from .serializers import ListSerializer, ListItemSerializer, UserSerializer, NewListSerializer
 from rest_framework import generics, status, permissions
 from django.contrib.auth.models import User
 from .permissions import IsOwner, IsListOwner
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 
-class SingleList(generics.RetrieveUpdateDestroyAPIView):
+class SingleListView(generics.RetrieveUpdateDestroyAPIView):
     queryset = List.objects.all()
     serializer_class = ListSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwner]
 
 
-class ListCreate(generics.ListCreateAPIView):
+class ListView(generics.ListAPIView):
     serializer_class = ListSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwner]
 
     def get_queryset(self, *args, **kwargs):
-        return List.objects.all().filter(owner=self.request.user)
+        if type(self.request.user) is not django.contrib.auth.models.AnonymousUser:
+            return List.objects.all().filter(owner=self.request.user)
+        else:
+            return List.objects.none()
+
+
+class ListCreate(generics.CreateAPIView):
+    serializer_class = NewListSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

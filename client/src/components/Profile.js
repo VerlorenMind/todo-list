@@ -24,14 +24,17 @@ const Profile = () => {
         }, []
     )
     return(
-        <div className={'list-container'}>
-            <ul>
-                {lists.map(item => {
-                    return (
-                        <li key={item.id}><Link to={'/list/' + item.id}>{item.name}</Link></li>
-                    )
-                })}
-            </ul>
+        <div>
+            <Link to={"/create-list"}>Create new list</Link>
+            <div className={'list-container'}>
+                <ul>
+                    {lists.map(item => {
+                        return (
+                            <li key={item.id}><Link to={'/list/' + item.id}>{item.name}</Link></li>
+                        )
+                    })}
+                </ul>
+            </div>
         </div>
     );
 }

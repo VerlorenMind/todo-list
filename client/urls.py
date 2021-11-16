@@ -6,5 +6,6 @@ urlpatterns = [
     path('', views.index),
     path('login', views.index),
     path('profile', views.index),
+    path('create-list', views.index),
     re_path(r'^list/[0-9]+$', views.index),
 ]

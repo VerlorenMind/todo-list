@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class List(models.Model):
     name = models.CharField(max_length=300, null=False, blank=False)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False, related_name='lists')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False, related_name='server')
 
 
 class ListItem(models.Model):

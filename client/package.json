@@ -6,8 +6,8 @@
   "scripts": {
     "test": "jest --env=jsdom",
     "e2e": "cypress open",
-    "dev": "webpack --mode development --entry ./src/index.js --output-path ./static/frontend",
-    "build": "webpack --mode production --entry ./src/index.js --output-path ./static/frontend"
+    "dev": "webpack --mode development --entry ./src/index.js --output-path static/client",
+    "build": "webpack --mode production --entry ./src/index.js --output-path static/client"
   },
   "keywords": [],
   "author": "",
