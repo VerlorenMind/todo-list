@@ -25,20 +25,20 @@ class NewListItemSerializer(serializers.ModelSerializer):
 
 
 class NewListSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
     items = NewListItemSerializer(many=True, required=False)
 
     class Meta:
         model = List
-        fields = ['id', 'name', 'owner', 'items']
+        fields = ['id', 'name', 'items']
 
     def create(self, validated_data):
-        new_list = List(name=validated_data['name'])
+        new_list = List(name=validated_data['name'], owner=self.context['user'])
+        new_list.save()
         items = validated_data.pop('items')
-        user = self.context['request'].user
         for item in items:
-            ListItem(**item, list=new_list.id)
-            pass
+            item = ListItem(**item, list=new_list)
+            item.save()
+        return new_list
 
 
 class UserSerializer(serializers.ModelSerializer):

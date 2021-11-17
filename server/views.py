@@ -27,12 +27,16 @@ class ListView(generics.ListAPIView):
             return List.objects.none()
 
 
-class ListCreate(generics.CreateAPIView):
+class ListCreate(APIView):
     serializer_class = NewListSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+    def post(self, request, *args, **kwargs):
+        serializer = NewListSerializer(data=request.data, context={'user': request.user})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ListItemCreate(generics.ListCreateAPIView):
