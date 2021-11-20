@@ -29,11 +29,22 @@ class ListAPITestCase(TestCase):
         ListItem.objects.create(contents='Item 1', done=True, list=bob_list_1).save()
         ListItem.objects.create(contents='Item 2', done=False, list=bob_list_1).save()
 
+    def test_anonymous_cant_get_lists(self):
+        # Preparing a request
+        request = self.factory.get('/api/lists/')
+
+        response = ListView.as_view()(request)
+
+        # Successful request, anonymous received zero lists
+        self.assertTrue(response.status_code == 200)
+        self.assertFalse(len(response.data) > 0)
+
     def test_user_can_get_their_lists(self):
         # Preparing a request
         request = self.factory.get('/api/lists/')
         # Force authenticating user
         force_authenticate(request, user=self.alice)
+
         # Sending a request
         response = ListView.as_view()(request)
 
@@ -55,8 +66,10 @@ class ListAPITestCase(TestCase):
                                     format='json')
         # Force authenticating user
         force_authenticate(request, user=self.bob)
+
         # Sending a request
         response = ListCreate.as_view()(request)
+
         # Checking the response
         self.assertTrue(response.status_code == 201)
         # Checking the model
