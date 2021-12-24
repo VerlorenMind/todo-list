@@ -5,8 +5,9 @@
   jobs:
     build-react:
       runs-on: ubuntu-latest
-      env:
-        working-directory: ./client
+      defaults:
+        run:
+          working-directory: ./client
       steps:
         - uses: actions/checkout@v2
         - name: Use Node.js
