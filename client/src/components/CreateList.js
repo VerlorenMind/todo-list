@@ -43,16 +43,18 @@ const CreateList = () =>
         console.log(request);
         fetch("/api/lists/create/",
             request
-        )
-            .then(response => {
-                if (response.ok && response.status === 201) {
-                    navigate('/list/' + response.json().data.id);
-                }
-                else {
-                    console.log(response);
-                    setResponse(response.json());
-                }
-            })
+        ).then(response => {
+            if (response.ok && response.status === 201) {
+                return response.json()
+            }
+            else {
+                console.log(response);
+                setResponse(response);
+                throw new Error('Failed to create list')
+            }
+        }).then(data => {
+            navigate('/list/' + data.id);
+        }).catch(error => console.log('error ->', error))
     }
     return(
         <form onSubmit={onSubmit} className={'create-list-form'}>

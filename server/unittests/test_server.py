@@ -11,7 +11,7 @@ class ListAPITestCase(TestCase):
     def setUp(self):
         # Create a couple of users
         self.alice = User.objects.create_user('Alice', 'alice@example.com', 'alicepassword')
-        self.bob = User.objects.create_user('Bob', 'alice@example.com', 'alicepassword')
+        self.bob = User.objects.create_user('Bob', 'bob@example.com', 'bobpassword')
         self.alice.save()
         self.bob.save()
         # Create lists for these users
@@ -55,6 +55,7 @@ class ListAPITestCase(TestCase):
         for list in response.data:
             # No lists are owned by Bob
             self.assertFalse(list['owner'] == self.bob)
+            # No phantom lists owned by Alice
             self.assertIn(list['name'], ['Alice list 1', 'Alice list 2'])
 
     def test_user_can_create_list(self):
