@@ -39,7 +39,7 @@ jobs:
       - name: Download built frontend
         uses: actions/download-artifact@v2
         with:
-          name: docker-frontend-built
+          name: frontend-built
           path: ./client/static/client/main.js
       - name: Run Django Tests
         run: |
