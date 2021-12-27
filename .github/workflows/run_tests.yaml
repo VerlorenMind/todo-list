@@ -22,7 +22,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: frontend-built
-          path: static/client/main.js
+          path: ./static/client/main.js
   build-django:
     runs-on: ubuntu-latest
     needs: build-react
@@ -40,7 +40,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: docker-frontend-built
-          path: client/static/client/main.js
+          path: ./client/static/client/main.js
       - name: Run Django Tests
         run: |
           python manage.py test server/unittests
