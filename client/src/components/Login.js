@@ -20,7 +20,8 @@ const Login = () => {
                         onChange={(e) => changeUsername(e.target.value)}
                         value={username}
                         type={'input'}
-                        name={'username'}/>
+                        name={'username'}
+                    />
                     <label className={'error-msg'}>{response.username}</label>
                 </div>
                 <div>
