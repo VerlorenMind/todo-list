@@ -7,3 +7,4 @@ static/frontend/geckodriver.log
 *.log
 client/static/client/main.js
 client/static/client/main.js.LICENSE.txt
+staticfiles/

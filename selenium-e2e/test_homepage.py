@@ -1,12 +1,15 @@
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+# from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from server.models import List, ListItem
 from django.contrib.auth.models import User
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from django.test import LiveServerTestCase
+import pytest
 
 
-class LoginTest(StaticLiveServerTestCase):
+@pytest.mark.django_db
+class LoginTest(LiveServerTestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox()
