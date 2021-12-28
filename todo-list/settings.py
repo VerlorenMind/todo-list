@@ -134,6 +134,6 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Configure Django App for Heroku.
-if 'I_AM_HEROKU' in os.environ:
+if 'HEROKU' in os.environ:
     import django_heroku
     django_heroku.settings(locals())
