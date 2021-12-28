@@ -37,6 +37,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          sudo apt install python3-distutils
           pip install -r requirements.txt
       - name: Download built frontend
         uses: actions/download-artifact@v2
@@ -49,7 +50,7 @@ jobs:
   heroku-deploy:
     runs-on: ubuntu-latest
     name: Git Deploy job- A job to deploy django app to heroku using git
-    needs: build-django
+    needs: build-react
     steps:
       - name: Checkout
         uses: actions/checkout@v2
