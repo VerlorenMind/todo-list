@@ -21,3 +21,4 @@ selenium~=4.1.0
 pycparser~=2.21
 wsproto~=1.0.0
 django-heroku~=0.0.0
+psycopg2
