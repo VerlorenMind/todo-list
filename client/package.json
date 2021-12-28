@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --env=jsdom",
-    "e2e": "cypress open",
-    "dev": "webpack --mode development --entry ./src/index.js --output-path static/client",
-    "build": "webpack --mode production --entry ./src/index.js --output-path static/client"
+    "test": "./node_modules/.bin/jest --env=jsdom",
+    "e2e": "./node_modules/.bin/cypress open",
+    "dev": "./node_modules/.bin/webpack --mode development --entry ./src/index.js --output-path static/client",
+    "build": "./node_modules/.bin/webpack --mode production --entry ./src/index.js --output-path static/client"
   },
   "keywords": [],
   "author": "",
