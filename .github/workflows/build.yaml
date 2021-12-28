@@ -31,19 +31,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.10'
+          python-version: '3.10.1'
       - name: psycopg2 prerequisites
-        run: sudo apt-get install libpq-dev
+        run: sudo apt-get install python3-distutils --reinstall
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          sudo apt install python3-distutils
           pip install -r requirements.txt
-      - name: Download built frontend
-        uses: actions/download-artifact@v2
-        with:
-          name: frontend-built
-          path: ./client/static/client/main.js
       - name: Run Django Tests
         run: |
           python manage.py test server/unittests
