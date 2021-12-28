@@ -22,6 +22,13 @@
     python manage.py test server/unittests
     python manage.py test selenium-e2e
     
+Для запуска тестов с помощью `pytest` с генерацией отчета для Allure:
+
+    pytest --alluredir=./allure/report
+    allure serve ./allure/report
+
+Приложение деплоится с помощью интеграции Heroku с Github. [Ссылка на деплой](https://verlorenmind-todo-lists.herokuapp.com).
+Альтернативно, можно использовать job `heroku-deploy` в закомментированной секции [файла с описанными actions](.github/workflows/build.yaml#L44).
 # Homework check list
 ## 1. Тестирование Frontend
 
@@ -67,14 +74,14 @@ Main часть:
 - [x] Добавить GitHub action для запуска тестов на UI и Backend по пушу из в master ветку.
 
 Advanced часть:
-- [ ] Добавить GitHub action для деплоя приложения UI+BE на Azure/Vercel/Яндекс Облако.
+- [x] Добавить GitHub action для деплоя приложения UI+BE на Azure/Vercel/Яндекс Облако.
 
 Bonus часть:
 - [ ] Использовать Kubernetes в Azure/Яндекс Облаке для разворачивания среды.
 
 ## 4. Allure reporting
 Bonus часть: 
-- [ ] Использовать Allure reporting для написанных тестов.
+- [x] Использовать Allure reporting для написанных тестов.
 
 ## 5. Pact-тестирование
 Bonus часть:
