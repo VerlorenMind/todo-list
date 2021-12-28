@@ -1,0 +1,24 @@
+name: Deploying to Heroku
+on:
+  push:
+    branches: [ main ]
+jobs:
+  heroku_git_deploy_job:
+    runs-on: ubuntu-latest
+    name: Git Deploy job- A job to deploy django app to heroku using git
+    needs: build-django
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download built frontend
+        uses: actions/download-artifact@v2
+        with:
+          name: frontend-built
+          path: ./client/static/client/main.js
+      - name: Deploy django to heroku
+        uses: nyakaz73/heroku-django-deploy@v0.68
+        with:
+          heroku_app_name : ${{ secrets.HEROKU_APP_NAME }}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_email_address: 'morzharetto@icloud.com'
+          use_git: true

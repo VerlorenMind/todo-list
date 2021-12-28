@@ -5,3 +5,4 @@ __pycache__/
 node_modules/
 static/frontend/geckodriver.log
 *.log
+client/static/client/main.js
